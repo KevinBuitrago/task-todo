@@ -10,9 +10,8 @@
 	* Main modules of the application.
 	* 
 	*/
-	console.log("asdasd", firebase);
 	firebase.initializeApp(firebaseConfig);
-	firebase.analytics();
+	const mainRef = firebase.database().ref();
 
 
 	var projectConfig = function ($routeProvider) {
