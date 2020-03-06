@@ -1,6 +1,6 @@
 /*global angular:true*/
 
-(function() {
+(function () {
 	/**
 	* @ngdoc index
 	* @name app
@@ -9,14 +9,18 @@
 	*
 	* Main modules of the application.
 	* 
-	*/ 
-	var projectConfig = function($routeProvider){
+	*/
+	console.log("asdasd", firebase);
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+
+
+	var projectConfig = function ($routeProvider) {
 		$routeProvider
-		.when('/', {
-			templateUrl:"views/gallery.html"
-		})
+			.when('/', {
+				templateUrl: "views/gallery.html"
+			})
 	};
 	projectConfig.$inject = ["$routeProvider"];
 	angular.module("phonecatApp", ["ngRoute"]).config(projectConfig);
 })();
-        
