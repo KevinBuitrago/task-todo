@@ -1,8 +1,13 @@
 <div class="container_24 " ng-controller="galleryController as gallery">
-<div class="row">
-	<div class="col-md-12 d-flex justify-content-center mb-5"> <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="all">All</button> <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="1">Mountains</button> <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="2">Sea</button> </div>
-</div> 
-
+    <form name="uploadForm" ng-submit="gallery.upload()">
+		<h3>File Uploader</h3>
+		<div class="input-group">
+		  <input type="file" name="file" ng-model="gallery.images" ng-change="gallery.onChange(event)"/>
+		  <div class="input-group-btn">
+			<button class="btn btn-default" type="submit">Upload</button>
+		  </div>
+		</div>
+	  </form>
 <div class="gallery" id="gallery">
 	<div class="mb-3 pics animation all 2"> <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg" alt="Card image cap"> </div>
 	<div class="mb-3 pics animation all 1"> <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg" alt="Card image cap"> </div>
