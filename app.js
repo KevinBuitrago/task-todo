@@ -24,7 +24,7 @@
 			.otherwise({
 				redirect: '/'
 			});
-	};
+	};	
 	projectConfig.$inject = ["$routeProvider"];
 	angular.module("phonecatApp", ["ngRoute"]).config(projectConfig);
 })();
