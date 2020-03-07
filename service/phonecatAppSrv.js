@@ -1,8 +1,10 @@
+"use strict";
 /*global angular:true*/
+/*global firebase:true*/
 
-var phonecatAppSrv = function($q) {
+var phonecatAppSrv = function ($q) {
     var responsephonecatAppSrv = {
-        getFileReader : function(file) {
+        getFileReader: (file) => {
             return $q((resolve, reject) => {
                 var reader = new FileReader();
                 reader.onload = ((event) => {
@@ -14,12 +16,19 @@ var phonecatAppSrv = function($q) {
                 reader.readAsDataURL(file);
             });
         },
-        convertFileToBase64: function (file) {
+        saveImageBase64: (name, base64, folder) => {
+            return $q((resolve, reject) => {
+                responsephonecatAppSrv.uploadImageBase64(base64, name, folder)
+                    .then((url) => resolve(url))
+                    .catch((error) => reject(error));
+            });
+        },
+        convertFileToBase64: (file) => {
             return $q((resolve, reject) => {
                 var base64 = "";
                 var fileReader = new FileReader();
                 fileReader.readAsDataURL(file);
-                fileReader.onload = function (event) {
+                fileReader.onload = (event) => {
                     base64 = event.target.result;
                     if (base64) {
                         resolve(base64);
@@ -29,6 +38,28 @@ var phonecatAppSrv = function($q) {
                 };
             });
         },
+        uploadImageBase64: (base64, name, folder) => {
+            return $q((resolve) => {
+                var storage = firebase.storage();
+                var storageRef = storage.ref();
+                var uploadTask = storageRef.child(folder + "/" + name).putString(base64, "data_url");
+                uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, null,
+                     () => {
+                        resolve(uploadTask.snapshot.downloadURL);
+                    });
+            });
+        },
+        downloadImage: (folder, name) => {
+            return $q((resolve, reject) => {
+                var storageRef = firebase.storage().ref();
+                var downloadTask = storageRef.child(folder + "/" + name);
+                downloadTask.getDownloadURL().then((url) => resolve(url))
+                    .catch((error) => reject(error));
+            });
+        },
+        deleteImage: (folder, name) => {
+            return firebase.storage().ref().child(folder + "/" + name).delete();
+        }
     };
     return responsephonecatAppSrv;
 };

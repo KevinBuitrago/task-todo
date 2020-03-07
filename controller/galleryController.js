@@ -3,14 +3,17 @@
 var galleryController = function (phonecatAppSrv) {
 var vm = this;
 vm.images = null;
-	const load = () => {
-		
-	}
-	vm.onChange = function onChange(fileList) {
-		console.log("fileList", fileList);
-        fileToUpload = fileList[0];
-    };
-    vm.upload = function() {
+$scope.change = function() {
+    $scope.counter++;
+    vm.uploadedFile = (element) => {
+        console.log("fdfd", element);
+        vm.$apply((dd) => {
+            vm.files = element.files;
+            console.log("vm.files,", vm.files);
+        });
+    }
+   
+    vm.upload = () => {
 		console.log(vm.images);
         // if (fileToUpload) {
         //     let storageRef = firebase.storage().ref(fileToUpload.name);
@@ -30,7 +33,7 @@ vm.images = null;
         //     });
         // }
     }
-	load();
+    console.log(vm);
 };
 galleryController.$inject = ["phonecatAppSrv"];
 angular.module("phonecatApp").controller("galleryController",galleryController);

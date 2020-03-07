@@ -2,7 +2,7 @@
     <form name="uploadForm" ng-submit="gallery.upload()">
 		<h3>File Uploader</h3>
 		<div class="input-group">
-		  <input type="file" name="file" ng-model="gallery.images" ng-change="gallery.onChange(event)"/>
+		  <input type="file" name="file" ng-model="gallery.images" ng-change="gallery.uploadedFile(event)"/>
 		  <div class="input-group-btn">
 			<button class="btn btn-default" type="submit">Upload</button>
 		  </div>
