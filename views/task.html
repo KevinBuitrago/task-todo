@@ -1,18 +1,15 @@
-<div
-    class="container_24 "
-    ng-controller="taskController as task"
->
+<div ng-controller="taskController as task">
     <form name>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text">
                     <input
                         type="checkbox"
-						aria-label="Checkbox for following text input"
-						ng-change="task.listTodos()"
-						ng-model="task.tmp"
-                    >	
-                </div>	
+                        aria-label="Checkbox for following text input"
+                        ng-change="task.listTodos()"
+                        ng-model="task.tmp"
+                    >
+                </div>
             </div>
             <input
                 type="text"
@@ -28,7 +25,12 @@
                     <i class="fa fa-home"></i>
                 </button>
             </div>
-		</div>
-		<button class="btn btn-primary" ng-click="task.test()">Save</button>
+        </div>
+        <button
+            class="btn btn-primary"
+            ng-click="task.testOne()"
+        >
+            Save
+        </button>
     </form>
 </div>

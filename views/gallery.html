@@ -1,33 +1,80 @@
-<div class="container_24 " ng-controller="galleryController as gallery">
-	<form name="uploadForm" ng-submit="gallery.upload()">
-		<h3>File Uploader</h3>
-		<div class="input-group">
-			<input type="file" name="file" ng-model="gallery.images" ng-change="gallery.uploadedFile(event)" />
-			<div class="input-group-btn">
-				<button class="btn btn-default" type="submit">Upload</button>
-			</div>
-		</div>
-		<div class="input-group">
-			<div class="input-group-btn">
-				<button class="btn btn-default" ng-click ="gallery.delete">Eliminar</button>
-			</div>
-		</div>
-	</form>
-	<div class="gallery" id="gallery">
-		<div class="mb-3 pics animation all 2"> <img class="img-fluid"
-				src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg" alt="Card image cap">
-		</div>
-		<div class="mb-3 pics animation all 1"> <img class="img-fluid"
-				src="https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg" alt="Card image cap"> </div>
-		<div class="mb-3 pics animation all 1"> <img class="img-fluid"
-				src="https://mdbootstrap.com/img/Photos/Vertical/mountain2.jpg" alt="Card image cap"> </div>
-		<div class="mb-3 pics animation all 2"> <img class="img-fluid"
-				src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" alt="Card image cap">
-		</div>
-		<div class="mb-3 pics animation all 2"> <img class="img-fluid"
-				src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Card image cap">
-		</div>
-		<div class="mb-3 pics animation all 1"> <img class="img-fluid"
-				src="https://mdbootstrap.com/img/Photos/Vertical/mountain3.jpg" alt="Card image cap"> </div>
-	</div>
+<div
+    class="container_24 "
+    ng-controller="galleryController as gallery"
+>
+    <form name="uploadForm">
+        <h3>File Uploader</h3>
+        <div class="input-group">
+            <input
+                type="file"
+                file-model
+            >
+            <div class="input-group-btn">
+                <button
+                    class="btn btn-default"
+                    type="submit"
+                    ng-click="gallery.test()"
+                >
+                    Upload
+                </button>
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button
+                    class="btn btn-default"
+                    ng-click="gallery.delete()"
+                >
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </form>
+    <div
+        class="gallery"
+        id="gallery"
+    >
+        <div class="mb-3 pics animation all 2">
+            <img
+                class="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg"
+                alt="Card image cap"
+            >
+        </div>
+        <div class="mb-3 pics animation all 1">
+            <img
+                class="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg"
+                alt="Card image cap"
+            >
+        </div>
+        <div class="mb-3 pics animation all 1">
+            <img
+                class="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Vertical/mountain2.jpg"
+                alt="Card image cap"
+            >
+        </div>
+        <div class="mb-3 pics animation all 2">
+            <img
+                class="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg"
+                alt="Card image cap"
+            >
+        </div>
+        <div class="mb-3 pics animation all 2">
+            <img
+                class="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
+                alt="Card image cap"
+            >
+        </div>
+        <div class="mb-3 pics animation all 1">
+            <img
+                class="img-fluid"
+                src="https://mdbootstrap.com/img/Photos/Vertical/mountain3.jpg"
+                alt="Card image cap"
+            >
+        </div>
+    </div>
 </div>

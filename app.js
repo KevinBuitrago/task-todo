@@ -1,30 +1,37 @@
 /*global angular:true*/
 
-(function () {
-	/**
-	* @ngdoc index
-	* @name app
-	* @description
-	* # app
-	*
-	* Main modules of the application.
-	* 
-	*/
-	firebase.initializeApp(firebaseConfig);
-	const mainRef = firebase.database().ref();
+const runHome = function ($rootScope, $location) {
+	"use strict";
+};
+runHome.$inject = ["$rootScope", "$location"];
+angular
+	.module("phonecatApp", ["ngRoute"])
+	.run(runHome);
+/**
+* @ngdoc index
+* @name app
+* @description
+* # app
+*
+* Main modules of the application.
+* 
+*/
+firebase.initializeApp(firebaseConfig);
+const mainRef = firebase.database().ref();
 
-	var projectConfig = function ($routeProvider) {
-		$routeProvider
-			.when('/', {
-				templateUrl: "views/gallery.html"
-			})
-			.when('/task', {
-				templateUrl: "views/task.html"
-			})
-			.otherwise({
-				redirect: '/'
-			});
-	};	
-	projectConfig.$inject = ["$routeProvider"];
-	angular.module("phonecatApp", ["ngRoute"]).config(projectConfig);
-})();
+const projectConfig = function ($routeProvider) {
+	$routeProvider
+		.when('/', {
+			templateUrl: "views/gallery.html"
+		})
+		.when('/task', {
+			templateUrl: "views/task.html"
+		})
+		.otherwise({
+			redirect: '/'
+		});
+};
+projectConfig.$inject = ["$routeProvider"];
+angular.module("phonecatApp").config(projectConfig);
+
+

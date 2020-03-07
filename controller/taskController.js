@@ -1,10 +1,12 @@
 /*global angular:true*/
 const taskController = function ($scope) {
-
-    $scope.listTodos = () => {
+    console.log("LLega al controlador");
+    const vm = this;
+    console.log("THIS", vm);
+    vm.listTodos = () => {
         console.log("asdasd");
     }
-    $scope.test = () => {
+    vm.testOne = () => {
         console.log("test");
     };
 };
