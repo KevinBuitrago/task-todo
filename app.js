@@ -27,6 +27,9 @@ const projectConfig = function ($routeProvider) {
 		.when('/task', {
 			templateUrl: "views/task.html"
 		})
+		.when('/chat', {
+			templateUrl: "views/chat.html"
+		})
 		.otherwise({
 			redirect: '/task'
 		});

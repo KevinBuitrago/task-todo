@@ -10,20 +10,17 @@ const taskController = function (todoSrv) {
     vm.addTask = () => {
         vm.task.status = 1;
         todoSrv.createTodo(vm.task)
-            .then((e) => {
+            .then(() => {
                 listTodos();
                 delete vm.task;
-            }).catch((err) => {
-            })
+            });
     }
     vm.removeTask = (tasks) => {
         vm.tasks = tasks.filter((task) => {
             if (task.selected) {
-                todoSrv.deleteTodo(task.idTodo)
-                    .then(() => {
-                        listTodos();
-                    })
+                todoSrv.deleteTodo(task.idTodo);
             }
+            listTodos();
         });
     }
     (() => {

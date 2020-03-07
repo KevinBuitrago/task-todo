@@ -2,7 +2,8 @@
     <div>
         <input type='text' placeholder='Titulo' ng-model='tasks.task.name' required>
         <textarea placeholder='descripcion' ng-model='tasks.task.motivation' required></textarea>
-        <input type='button' ng-click='tasks.addTask(task)' value='add'>
+        <input type='button' ng-click='tasks.addTask(task)' ng-disabled='!tasks.task.name || !tasks.task.motivation'
+            value='add'>
     </div>
     <h2>your task's list</h2>
     <ul>

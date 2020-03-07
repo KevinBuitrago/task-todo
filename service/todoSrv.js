@@ -44,13 +44,7 @@ const todoSrv = ($q) => {
         deleteTodo: (idTodo) => {
             return $q((resolve, reject) => {
                 firebase.database().ref().child("todos/" + idTodo)
-                    .remove()
-                    .then(() => {
-                        resolve();
-                    })
-                    .catch((error) => {
-                        reject(error);
-                    });
+                    .remove();
             });
         },
         editTodo: (idTodo, todo) => {
