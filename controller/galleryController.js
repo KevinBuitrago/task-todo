@@ -12,7 +12,9 @@ $scope.change = function() {
             console.log("vm.files,", vm.files);
         });
     }
-   
+    getImages =(()=>{
+        phonecatAppSrv.getFileReader();
+    })
     vm.upload = () => {
 		console.log(vm.images);
         // if (fileToUpload) {
