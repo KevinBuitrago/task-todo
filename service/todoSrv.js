@@ -17,10 +17,10 @@ const todoSrv = ($q) => {
                         todo = [];
                         angular.forEach(data, (value, key) => {
                             if (value.status !== 0) {
-                                todo.push({ idTodo: key, description: value.description, status: value.status });
+                                todo.push({ idTodo: key, motivation: value.motivation, name: value.name, status: value.status, selected: false });
                             }
                         });
-                        resolve();
+                        resolve(todo);
                     })
                     .catch((error) => {
                         reject(error);
@@ -33,8 +33,7 @@ const todoSrv = ($q) => {
                     .push(todo)
                     .then((response) => {
                         todo.idTodo = response.id;
-                        todos.push(events);
-                        console.log(response);
+                        todos.push();
                         resolve();
                     })
                     .catch((error) => {
@@ -46,8 +45,7 @@ const todoSrv = ($q) => {
             return $q((resolve, reject) => {
                 firebase.database().ref().child("todos/" + idTodo)
                     .remove()
-                    .then((response) => {
-                        console.log(response);
+                    .then(() => {
                         resolve();
                     })
                     .catch((error) => {

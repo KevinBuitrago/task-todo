@@ -1,36 +1,16 @@
-<div ng-controller="taskController as task">
-    <form name>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <div class="input-group-text">
-                    <input
-                        type="checkbox"
-                        aria-label="Checkbox for following text input"
-                        ng-change="task.listTodos()"
-                        ng-model="task.tmp"
-                    >
-                </div>
-            </div>
-            <input
-                type="text"
-                class="form-control"
-                aria-label="Text input with checkbox"
-            >
-            <div class="input-group-append">
-
-                <button
-                    class="btn btn-danger"
-                    type="button"
-                >
-                    <i class="fa fa-home"></i>
-                </button>
-            </div>
-        </div>
-        <button
-            class="btn btn-primary"
-            ng-click="task.testOne()"
-        >
-            Save
-        </button>
-    </form>
+<div ng-controller="taskController as tasks">
+    <div>
+        <input type='text' placeholder='Titulo' ng-model='tasks.task.name' required>
+        <textarea placeholder='descripcion' ng-model='tasks.task.motivation' required></textarea>
+        <input type='button' ng-click='tasks.addTask(task)' value='add'>
+    </div>
+    <h2>your task's list</h2>
+    <ul>
+        <li ng-repeat='task in tasks.tasks'>
+            <input type='checkbox' ng-model='task.selected'>
+            <label>{{task.name}}</label>
+            <span>{{task.motivation}}</span>
+        </li>
+        <input type='button' ng-click='tasks.removeTask(tasks.tasks)' value='remove'>
+    </ul>
 </div>

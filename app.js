@@ -22,7 +22,7 @@ const mainRef = firebase.database().ref();
 const projectConfig = function ($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: "views/gallery.html"
+			templateUrl: "views/task.html"
 		})
 		.when('/task', {
 			templateUrl: "views/task.html"

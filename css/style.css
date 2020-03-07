@@ -120,6 +120,135 @@ footer.padfooter{ padding-top:41px;}
 .pad{ padding:17px 0 12px 0;}
 .pad2{ padding:2px 0 28px 0;}
 .imgindent{ margin:5px 0 0 10px;}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 10px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  background-color: #f8f8f8;
+  color: #20285a;
+  padding-bottom: 50px;
+}
+
+input[type='text'],
+textarea,
+input[type='button'] {
+  border-radius: 5px;
+  border: 2px solid #20285a;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  color: #20285a;
+}
+
+input[type='text'],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: rgba(255, 255, 255, .7);
+}
+
+input[type='text'],
+input[type='button'] {
+  height: 50px;
+}
+
+input[type='button'] {
+  width: 100%;
+  background-color: transparent;
+  margin: 10px 0;
+  display: block;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input[type='button'][value='remove'] {
+  border-color: #41101d;
+  color: #41101d;
+}
+
+input[type='button']:not(:disabled):hover {
+  background-color: rgba(255, 255, 255, .4);
+}
+
+input[type='button'][value='remove']:not(:disabled):hover {
+  background-color: #d96383;
+}
+
+input[type='button']:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+input[type='checkbox'] {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+input[type='checkbox']:checked + label {
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+input[type='checkbox']:checked + label + span {
+  opacity: .3;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  color: #fff;
+  margin: 20px 0 10px;
+  font-size: 1.8em;
+}
+
+li {
+  padding: 15px;
+}
+
+li:nth-child(odd) {
+  background-color: rgba(255, 255, 255, .1)
+}
+
+li:nth-child(even) {
+  background-color: rgba(255, 255, 255, .2)
+}
+
+li label {
+  margin-left: 15px;
+  position: relative;
+  top: -6px;
+  font-size: 1.6em;
+}
+
+li span {
+  display: block;
+  font-size: 1.2em;
+}
+
+.list-area {
+  width: 70%;
+  margin: 50px auto 0;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #717ecd;
+  box-shadow: 2px 2px 15px rgba(0,0,0,.5);
+}
 /*==========================================*/
 @media only screen and (min-width: 768px) and (max-width: 995px) {
 	header h1 a{ width:156px;}

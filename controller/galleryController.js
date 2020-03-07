@@ -1,42 +1,38 @@
 /*global angular:true*/
+/*global firebase:true*/
 
 var galleryController = function (phonecatAppSrv) {
     var vm = this;
+    console.log("firebase",firebase);
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    var filesRef = storageRef.child('gallery');
     vm.images = null;
     vm.test = () => {
         console.log("asdsd");
-
     };
-    vm.uploadedFile = (element) => {
-        console.log("fdfd", element);
-        // vm.$apply((dd) => {
-        //     vm.files = element.files;
-        //     console.log("vm.files,", vm.files);
-        // });
-    }
+
+    vm.uploadFile = function (file) {
+        console.log("Let's upload a file!");
+        console.log($scope.file);
+        storageRef.child(file.name).put(file);
+        storageRef.on('state_changed', function (snapshot) {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        }, function () {
+            //handle error
+        }, function () {
+            //url of storage file 
+            var downloadURL = storageRef.snapshot.downloadURL;
+            console.log(downloadURL)
+            //you will get url of snapshot
+        });
+    };
+
     const getImages = (() => {
         phonecatAppSrv.getFileReader();
     })
-    vm.delete1 = (() => { })
-    vm.upload = () => {
-        console.log(vm.images);
-        // if (fileToUpload) {
-        //     let storageRef = firebase.storage().ref(fileToUpload.name);
-        //     let storage = $firebaseStorage(storageRef);
-        //     let uploadTask = storage.$put(fileToUpload);
-        //     uploadTask.$complete((snapshot) => {
-        //         let ref = firebase.database().ref("Files");
-        //         let pushKey = ref.push().key;
-        //         let formData = $firebaseObject(ref.child(pushKey));
-        //         formData.name = fileToUpload.name;
-        //         formData.timestamp = firebase.database.ServerValue.TIMESTAMP;
-        //         formData.url = snapshot.downloadURL;
-        //         formData.$save().then(() => {
-        //             angular.element("input[type='file']").val(null);
-        //             fileToUpload = null;
-        //         })
-        //     });
-    }
+    vm.delete = (() => { })
     console.log(vm);
 };
 galleryController.$inject = ["phonecatAppSrv"];

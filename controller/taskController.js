@@ -2,14 +2,34 @@
 const taskController = function (todoSrv) {
     console.log("LLega al controlador");
     const vm = this;
-    console.log("THIS", vm);
     const listTodos = () => {
-        todoSrv.getTodos();       
+        todoSrv.getTodos()
+            .then((data) => {
+                vm.tasks = data;
+                console.log(vm.tasks);
+            });
     }
-    vm.testOne = () => {
-        console.log("test");
-    };
-
+    vm.addTask = () => {
+        vm.task.status = 1;
+        todoSrv.createTodo(vm.task)
+            .then((e) => {
+                console.log(e);
+                listTodos();
+                delete vm.task;
+            }).catch((err) => {
+                console.log(err);
+            })
+    }
+    vm.removeTask = (tasks) => {
+        vm.tasks = tasks.filter((task) => {
+            if (task.selected) {
+                todoSrv.deleteTodo(task.idTodo)
+                    .then(() => {
+                        listTodos();
+                    })
+            }
+        });
+    }
     (() => {
         listTodos();
     })();

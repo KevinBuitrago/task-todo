@@ -19,11 +19,11 @@ var phonecatAppSrv = function ($q) {
         saveImageBase64: (name, base64, folder) => {
             return $q((resolve, reject) => {
                 const imageUrl = null;
+                const idPush = responsephonecatAppSrv.pushIdImage();
                 responsephonecatAppSrv.uploadImageBase64(base64, name, folder)
                     .then((url) => {
                         imageUrl = url;
-                        const idPush = responsephonecatAppSrv.pushIdImage();
-                        return  responsephonecatAppSrv.setimage(idPush, imageUrl);
+                        return responsephonecatAppSrv.setimage(idPush, imageUrl);
                     })
                     .then(() => {
                         resolve(imageUrl)
@@ -48,11 +48,11 @@ var phonecatAppSrv = function ($q) {
         },
         setimage: (idImagea, setImage) => {
             return $q((resolve, reject) => {
-                mainRef.child("gallery/"+idImagea+"/url").set(setImage)
-                .then(() =>  resolve(true))
-                .catch((error) => {
-                    reject(error);
-                });
+                mainRef.child("gallery/" + idImagea + "/url").set(setImage)
+                    .then(() => resolve(true))
+                    .catch((error) => {
+                        reject(error);
+                    });
             });
         },
         uploadImageBase64: (base64, name, folder) => {
@@ -78,7 +78,7 @@ var phonecatAppSrv = function ($q) {
             return firebase.storage().ref().child(folder + "/" + name).delete();
         },
         pushIdImage: (folder, name) => {
-            return firebase.storage().ref().child("gallery/"+idImagea+"/url").push();
+            return firebase.storage().ref().child("gallery/" + idImagea + "/url").push();
         }
     };
     return responsephonecatAppSrv;
