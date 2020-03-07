@@ -18,8 +18,16 @@ var phonecatAppSrv = function ($q) {
         },
         saveImageBase64: (name, base64, folder) => {
             return $q((resolve, reject) => {
+                const imageUrl = null;
                 responsephonecatAppSrv.uploadImageBase64(base64, name, folder)
-                    .then((url) => resolve(url))
+                    .then((url) => {
+                        imageUrl = url;
+                        const idPush = responsephonecatAppSrv.pushIdImage();
+                        return  responsephonecatAppSrv.setimage(idPush, imageUrl);
+                    })
+                    .then(() => {
+                        resolve(imageUrl)
+                    })
                     .catch((error) => reject(error));
             });
         },
@@ -38,13 +46,22 @@ var phonecatAppSrv = function ($q) {
                 };
             });
         },
+        setimage: (idImagea, setImage) => {
+            return $q((resolve, reject) => {
+                mainRef.child("gallery/"+idImagea+"/url").set(setImage)
+                .then(() =>  resolve(true))
+                .catch((error) => {
+                    reject(error);
+                });
+            });
+        },
         uploadImageBase64: (base64, name, folder) => {
             return $q((resolve) => {
                 var storage = firebase.storage();
                 var storageRef = storage.ref();
                 var uploadTask = storageRef.child(folder + "/" + name).putString(base64, "data_url");
                 uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, null,
-                     () => {
+                    () => {
                         resolve(uploadTask.snapshot.downloadURL);
                     });
             });
@@ -59,6 +76,9 @@ var phonecatAppSrv = function ($q) {
         },
         deleteImage: (folder, name) => {
             return firebase.storage().ref().child(folder + "/" + name).delete();
+        },
+        pushIdImage: (folder, name) => {
+            return firebase.storage().ref().child("gallery/"+idImagea+"/url").push();
         }
     };
     return responsephonecatAppSrv;
