@@ -33,7 +33,7 @@ $scope.change = function() {
         //             fileToUpload = null;
         //         })
         //     });
-        // }
+        }
     }
     console.log(vm);
 };
