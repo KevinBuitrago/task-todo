@@ -1,14 +1,18 @@
 /*global angular:true*/
-const taskController = function ($scope) {
+const taskController = function (todoSrv) {
     console.log("LLega al controlador");
     const vm = this;
     console.log("THIS", vm);
-    vm.listTodos = () => {
-        console.log("asdasd");
+    const listTodos = () => {
+        todoSrv.getTodos();       
     }
     vm.testOne = () => {
         console.log("test");
     };
+
+    (() => {
+        listTodos();
+    })();
 };
-taskController.$inject = ["$scope"];
+taskController.$inject = ["todoSrv"];
 angular.module("phonecatApp").controller("taskController", taskController);

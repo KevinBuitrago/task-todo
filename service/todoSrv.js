@@ -1,6 +1,6 @@
 /*global angular:true*/
 
-const todoSrv = function ($q) {
+const todoSrv = ($q) => {
     /**
      * @name Status
      * @example 0: Borrado; 1: Por hacer; 2: Realizada;
@@ -10,10 +10,17 @@ const todoSrv = function ($q) {
         getTodos: () => {
             return $q((resolve, reject) => {
                 firebase.database().ref().child("todos")
+                    .orderByChild("status").equalTo(1)
                     .once("value")
                     .then((events) => {
-                        console.log("VEmoas la data", events.val());
-                        resolve(resolve);
+                        const data = events.val();
+                        todo = [];
+                        angular.forEach(data, (value, key) => {
+                            if (value.status !== 0) {
+                                todo.push({ idTodo: key, description: value.description, status: value.status });
+                            }
+                        });
+                        resolve();
                     })
                     .catch((error) => {
                         reject(error);
@@ -21,29 +28,44 @@ const todoSrv = function ($q) {
             });
         },
         createTodo: (todo) => {
-            firebase.database().ref().child("todos")
-                .push(todo)
-                .then((response) => {
-                    todo.idTodo = response.id;
-                    todos.push(events);
-                    console.log(response);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
+            return $q((resolve, reject) => {
+                firebase.database().ref().child("todos")
+                    .push(todo)
+                    .then((response) => {
+                        todo.idTodo = response.id;
+                        todos.push(events);
+                        console.log(response);
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
         },
         deleteTodo: (idTodo) => {
-            firebase.database().ref().child("todos")
-                .push(todo)
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
+            return $q((resolve, reject) => {
+                firebase.database().ref().child("todos/" + idTodo)
+                    .remove()
+                    .then((response) => {
+                        console.log(response);
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
         },
         editTodo: (idTodo, todo) => {
-
+            return $q((resolve, reject) => {
+                mainRef.child("todos/" + idTodo)
+                    .update(todo)
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
         }
     };
     return responseTodoSrv;
