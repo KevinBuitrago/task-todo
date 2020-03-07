@@ -3,7 +3,10 @@
 /*global firebase:true*/
 
 var phonecatAppSrv = function ($q) {
+    let progressFile = 0;
+    let listGallery = [];
     var responsephonecatAppSrv = {
+        getGalleries: () => listGallery,
         getFileReader: (file) => {
             return $q((resolve, reject) => {
                 var reader = new FileReader();
@@ -16,14 +19,11 @@ var phonecatAppSrv = function ($q) {
                 reader.readAsDataURL(file);
             });
         },
-        saveImageBase64: (name, base64, folder) => {
+        saveUrl: (imageUrl) => {
             return $q((resolve, reject) => {
-                const imageUrl = null;
-                const idPush = responsephonecatAppSrv.pushIdImage();
-                responsephonecatAppSrv.uploadImageBase64(base64, name, folder)
-                    .then((url) => {
-                        imageUrl = url;
-                        return responsephonecatAppSrv.setimage(idPush, imageUrl);
+                const idPush = responsephonecatAppSrv.pushIdImage()
+                    .then((data) => {
+                        return responsephonecatAppSrv.setimage(data.key, imageUrl);
                     })
                     .then(() => {
                         resolve(imageUrl)
@@ -55,31 +55,63 @@ var phonecatAppSrv = function ($q) {
                     });
             });
         },
-        uploadImageBase64: (base64, name, folder) => {
-            return $q((resolve) => {
-                var storage = firebase.storage();
-                var storageRef = storage.ref();
-                var uploadTask = storageRef.child(folder + "/" + name).putString(base64, "data_url");
-                uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, null, null,
-                    () => {
-                        resolve(uploadTask.snapshot.downloadURL);
+        loadGalleries: () => {
+            return $q((resolve, reject) => {
+                firebase.database().ref().child("gallery")
+                    .once("value")
+                    .then((events) => {
+                        const data = events.val();
+                        listGallery = [];
+                        angular.forEach(data, (value, key) => {
+                            listGallery.push({ url: value.url, idGallery: key });
+                        });
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
                     });
             });
         },
-        downloadImage: (folder, name) => {
+        deleteImage: (folder, name) => {
+            return $q.all([
+                mainRef.child(folder + "/" + name).delete(),
+                firebase.storage().ref().child(folder + "/" + name).delete()
+            ]);
+        },
+        pushIdImage: () => {
+            return mainRef.child("gallery").push();
+        },
+        getUrlImage: (folder, name) => {
+            var storageRef = firebase.storage().ref();
+            var downloadTask = storageRef.child(folder + "/" + name);
+            return downloadTask.getDownloadURL();
+        },
+        uploadFile: (file) => {
             return $q((resolve, reject) => {
-                var storageRef = firebase.storage().ref();
-                var downloadTask = storageRef.child(folder + "/" + name);
-                downloadTask.getDownloadURL().then((url) => resolve(url))
-                    .catch((error) => reject(error));
+                const storage = firebase.storage();
+                const storageRef = storage.ref();
+                const listener = storageRef.child('gallery/' + file.name).put(file);
+                debugger;
+                listener.on('state_changed', function (snapshot) {
+                    progressFile = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                }, function () {
+                    reject();
+                }, function () {
+                    debugger;
+                    progressFile = 0;
+                    responsephonecatAppSrv.getUrlImage('gallery', file.name)
+                        .then((url) => {
+                            return responsephonecatAppSrv.saveUrl(url);
+                        })
+                        .then(() => {
+                            resolve();
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        });
+                });
             });
         },
-        deleteImage: (folder, name) => {
-            return firebase.storage().ref().child(folder + "/" + name).delete();
-        },
-        pushIdImage: (folder, name) => {
-            return firebase.storage().ref().child("gallery/" + idImagea + "/url").push();
-        }
     };
     return responsephonecatAppSrv;
 };

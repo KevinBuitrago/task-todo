@@ -2,56 +2,35 @@
     class="container_24 "
     ng-controller="galleryController as gallery"
 >
-<form ng-submit="gallery.uploadFile(file)">
-	<h3>File Uploader</h3>
-	<input type="file" accept="txt" file-model="file" class="form-control">
-	<button type="submit" class="btn btn-primary">Upload File</button>
-  </form>
+    <form name="form">
+        <h3>File Uploader</h3>
+        <input
+            type="file"
+            file-model="file"
+            class="form-control"
+            name="file"
+        >
+        <button
+            class="btn btn-primary"
+            ng-click="gallery.uploadFile(form, file)"
+        >
+            Upload File
+        </button>
+    </form>
     <div
         class="gallery"
         id="gallery"
     >
-        <div class="mb-3 pics animation all 2">
+        <div
+            class="mb-3 pics animation all 2"
+            ng-repeat="value in gallery.galleries"
+        >
             <img
                 class="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg"
-                alt="Card image cap"
-            >
-		</div>
-        <div class="mb-3 pics animation all 1">
-            <img
-                class="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg"
+                src="{{ value.url }}"
                 alt="Card image cap"
             >
         </div>
-        <div class="mb-3 pics animation all 1">
-            <img
-                class="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Vertical/mountain2.jpg"
-                alt="Card image cap"
-            >
-        </div>
-        <div class="mb-3 pics animation all 2">
-            <img
-                class="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg"
-                alt="Card image cap"
-            >
-        </div>
-        <div class="mb-3 pics animation all 2">
-            <img
-                class="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
-                alt="Card image cap"
-            >
-        </div>
-        <div class="mb-3 pics animation all 1">
-            <img
-                class="img-fluid"
-                src="https://mdbootstrap.com/img/Photos/Vertical/mountain3.jpg"
-                alt="Card image cap"
-            >
-		</div>
+
     </div>
 </div>
