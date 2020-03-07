@@ -1,0 +1,43 @@
+<div class="modal-content" ng-controller="chatController as chat">
+    <div class="caja-chat">
+        <div class="box-chat-video">
+            <div class="content-user vip">
+                <div class="item-user">
+                    <div class="img_user">
+                        <img ng-src="{{'imagenes/images.png'}}" class="img-chat" width="46" alt="Foto perfil">
+                        <h4 class="chat-main blueform bold">
+                            juan miguel
+                            <!-- {{chat.dataChat.userData.firstName+' '+chat.dataChat.userData.lastName}} -->
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="content-chat" page-loaded>
+                <div class="row" ng-repeat="(keyChat , chat) in chat.dataChat.messages" page-loaded>
+                    <div class="col-sm-12">
+                        <div
+                            ng-class="{'message-right' : (chat.received == 1) , 'message-left' : (chat.received == 0)}">
+                            <div ng-if="chat.type == 1" ng-bind-html="chat.message | changeBreakLine | trust">
+                            </div>
+                            <div class="hour"> <span ng-if="chat.received == 1"
+                                    ng-class="{'ion-android-done' : chat.readSender == 0 , 'ion-android-done-all' : chat.readSender == 1}"></span>
+                            </div>
+                            <div class="date">{{chat.timestamp | date : 'd/M/yyyy'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-submit">
+                <div class="col-sm-10 pad-general">
+                    <textarea class="form-control textarea msd-elastic" placeholder="Escribir..."
+                        ng-model="chat.configData.conversation.inputMessage"
+                        ng-keypress="($event.which === 13 && !$event.shiftKey) ? chat.functionsChat.pressEnter($event) : 0"></textarea>
+                </div>
+                <div class="col-sm-2">
+                    <span class="btn btn-default btn-send ion-android-send" tooltip-placement="top" uib-tooltip="send"
+                        ng-click="chat.sendMessage(chat.configData.conversation.inputMessage, 1)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

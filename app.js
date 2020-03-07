@@ -22,10 +22,13 @@ const mainRef = firebase.database().ref();
 const projectConfig = function ($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: "views/task.html"
+			templateUrl: "views/gallery.html"
 		})
 		.when('/task', {
 			templateUrl: "views/task.html"
+		})
+		.when('/chat', {
+			templateUrl: "views/chat.html"
 		})
 		.otherwise({
 			redirect: '/'
