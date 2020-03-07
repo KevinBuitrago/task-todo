@@ -21,7 +21,7 @@ const mainRef = firebase.database().ref();
 
 const projectConfig = function ($routeProvider) {
 	$routeProvider
-		.when('/', {
+		.when('/gallery', {
 			templateUrl: "views/gallery.html"
 		})
 		.when('/task', {
@@ -31,8 +31,9 @@ const projectConfig = function ($routeProvider) {
 			templateUrl: "views/chat.html"
 		})
 		.otherwise({
-			redirect: '/task'
+			redirect: '/gallery'
 		});
+
 };
 projectConfig.$inject = ["$routeProvider"];
 angular.module("phonecatApp").config(projectConfig);

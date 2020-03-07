@@ -1,17 +1,57 @@
-<div ng-controller="taskController as tasks">
-    <div>
-        <input type='text' placeholder='Titulo' ng-model='tasks.task.name' required>
-        <textarea placeholder='descripcion' ng-model='tasks.task.motivation' required></textarea>
-        <input type='button' ng-click='tasks.addTask(task)' ng-disabled='!tasks.task.name || !tasks.task.motivation'
-            value='add'>
+<div
+    ng-controller="taskController as tasks"
+    class="page-task"
+>
+    <div class="card shadow-sm mb-4 p-4">
+        <h3>your task's list</h3>
+        <div class="mt-4">
+            <input
+                type='text'
+                placeholder='Titulo'
+                ng-model='tasks.task.name'
+                required
+            >
+            <textarea
+                placeholder='descripcion'
+                ng-model='tasks.task.motivation'
+                required
+            ></textarea>
+            <input
+                type='button'
+                ng-click='tasks.addTask(task)'
+                ng-disabled='!tasks.task.name || !tasks.task.motivation'
+                value='add'
+            >
+        </div>
     </div>
-    <h2>your task's list</h2>
     <ul>
-        <li ng-repeat='task in tasks.tasks'>
-            <input type='checkbox' ng-model='task.selected'>
-            <label>{{task.name}}</label>
-            <span>{{task.motivation}}</span>
-        </li>
-        <input type='button' ng-click='tasks.removeTask(tasks.tasks)' value='remove'>
+        <div
+            class="card shadow-sm p-4 mb-3"
+            ng-repeat='task in tasks.tasks'
+        >
+            <div style="display: flex; align-items: center;">
+                <input
+                    type='checkbox'
+                    ng-model='task.selected'
+                >
+                <div
+                    class="ml-3"
+                    style="float: left;"
+                >
+                    <h4>
+                        <strong>{{task.name}}</strong>
+                    </h4>
+                    <span>{{task.motivation}}</span>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- <li ng-repeat='task in tasks.tasks'></li> -->
+        <input
+            type='button'
+            ng-click='tasks.removeTask(tasks.tasks)'
+            value='remove'
+        >
     </ul>
 </div>

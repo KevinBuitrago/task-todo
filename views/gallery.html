@@ -1,36 +1,52 @@
-<div
-    class="container_24 "
-    ng-controller="galleryController as gallery"
->
-    <form name="form">
-        <h3>File Uploader</h3>
-        <input
-            type="file"
-            file-model="file"
-            class="form-control"
-            name="file"
-        >
-        <button
-            class="btn btn-primary"
-            ng-click="gallery.uploadFile(form, file)"
-        >
-            Upload File
-        </button>
-    </form>
-    <div
-        class="gallery"
-        id="gallery"
-    >
-        <div
-            class="mb-3 pics animation all 2"
-            ng-repeat="value in gallery.galleries"
-        >
-            <img
-                class="img-fluid"
-                src="{{ value.url }}"
-                alt="Card image cap"
-            >
-        </div>
+<div ng-controller="galleryController as gallery">
+    <div class="card mb-4 p-4 shadow-sm">
+        <form name="form">
+            <h3>File Uploader</h3>
 
+            <div class="custom-file mb-4">
+                <input
+                    type="file"
+                    class="custom-file-input"
+                    id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01"
+                    type="file"
+                    file-model="file"
+                    name="file"
+                >
+                <label
+                    class="custom-file-label"
+                    for="inputGroupFile01"
+                >
+                    Seleccione una imagen
+                </label>
+            </div>
+            <button
+                class="btn btn-primary"
+                ng-click="gallery.uploadFile(form, file)"
+            >
+                Upload File
+            </button>
+        </form>
     </div>
+    <div class="card p-4 shadow-sm">
+        <div class="container_24 ">
+            <div
+                class="gallery mt-4 mb-4"
+                id="gallery"
+            >
+                <div
+                    class="mb-3 pics animation all 2"
+                    ng-repeat="value in gallery.galleries"
+                >
+                    <img
+                        class="img-fluid"
+                        src="{{ value.url }}"
+                        alt="Card image cap"
+                    >
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
