@@ -281,5 +281,38 @@ footer.padfooter{ padding-top:41px;}
 	  box-shadow: 2px 2px 15px rgba(0,0,0,.5);
 	}
 
+	.df-form input[type="text"],
+	.df-form textarea {
+	  width: 100%;
+	  padding: 15px;
+	  display: block;
+	  margin-bottom: 5px;
+	  border: 0;
+	  outline: 0;
+	  background: #3b3b3b;
+	  color: #fff;
+	}
+	
+	.df-form input[type="button"] {
+	  display: block;
+	  border-radius: 2px;
+	  width: 100%;
+	  border: 0;
+	  margin: 20px 0 0 0;
+	  background-color: #f44336;
+	  padding: 15px 0;
+	}
+	
+	.df-form input:focus,
+	.df-form textarea:focus {
+	  color: white;
+	}
 
-
+	.df-form textarea:focus:invalid ~ label {
+	  display: block;
+	  position: absolute;
+	  top: 5px;
+	  right: 10px;
+	  font-size: 1.5rem;
+	  font-weight: bold;
+	}

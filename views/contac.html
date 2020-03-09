@@ -1,0 +1,18 @@
+<div class="card shadow-sm p-5 mb-3" ng-controller="contaChatController as contacChat">
+            <div class="container-chat">
+                <div class="df-modal-content">
+                    <h2>Con quie quieres hablar</h2>
+                    <form action="#" class="df-form">
+                        <div class="df-input-box">
+                            <input type="text"  ng-model="contacChat.user" name="email" placeholder="numero Telefonico">
+                            <label for="email"></label>
+                        </div>
+                        <div class="df-input-box">
+                            <input type="text"  ng-model="contacChat.userContac" name="sujet" placeholder="numero Telefonico de tu contacto">
+                            <label for="sujet"></label>
+                        </div>
+                        <input type="button" ng-click ="contacChat.saveUserandContac(contacChat.user, contacChat.userContac)" value="Guardar"/>
+                    </form>
+                </div>
+            </div>
+</div>

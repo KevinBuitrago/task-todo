@@ -1,55 +1,27 @@
-<div class="card shadow-sm p-5 mb-3">
-    <div class="container-chat">
-        <img
-            src="https://www.w3schools.com/w3images/bandmember.jpg"
-            alt="Avatar"
-            style="width:100%;"
-        >
-        <p>Hello. How are you today?</p>
-        <span class="time-right">11:00</span>
-    </div>
-
-    <div class="container-chat darker">
-        <img
-            src="https://www.w3schools.com/w3images/avatar_g2.jpg"
-            alt="Avatar"
-            class="right"
-            style="width:100%;"
-        >
-        <p>Hey! I'm fine. Thanks for asking!</p>
-        <span class="time-left">11:01</span>
-    </div>
-
-    <div class="container-chat">
-        <img
-            src="https://www.w3schools.com/w3images/bandmember.jpg"
-            alt="Avatar"
-            style="width:100%;"
-        >
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
-    </div>
-
-    <div class="container-chat darker">
-        <img
-            src="https://www.w3schools.com/w3images/avatar_g2.jpg"
-            alt="Avatar"
-            class="right"
-            style="width:100%;"
-        >
-        <p>
-            Nah, I dunno. Play soccer.. or learn more coding perhaps?
-        </p>
-        <span class="time-left">11:05</span>
-    </div>
+<div class="card shadow-sm p-5 mb-3" ng-controller="chatController as chat">
     <div class="mt-4">
-        <textarea
-            class="mb-4 form-control"
-            id
-            cols="30"
-            rows="3"
-        ></textarea>
-        <button class="btn btn-primary" style="float: right;">Enviar</button>
+        <button ng-click = "chat.route()" class="btn btn-primary" style="float: right;">Contacto</button>
+    </div>
+<div class="container-chat darker" ng-if="!chat.message">
+        <span class="center">No hay conversaciones</span>
+    </div>
+    <div ng-repeat="chats in chat.message">
+        <div class="container-chat" ng-if="chats.idSender !== chat.idUser">
+            <img src="imagenes/images.png" alt="Avatar" style="width:100%;">
+            <p>{{chats.message}}</p>
+            <span class="time-right">{{chats.date | date : 'dd/MM/yyyy'}} {{chats.date | date : 'HH:mm'}}</span>
+        </div>
+
+        <div class="container-chat darker" ng-if="chats.idSender === chat.idUser">
+            <img src="imagenes/images.png" alt="Avatar" class="right" style="width:100%;">
+            <p>{{chats.message}}</p>
+            <span class="time-left">{{chats.date | date : 'dd/MM/yyyy'}} {{chats.date | date : 'HH:mm'}}</span>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <textarea  ng-model="chat.text" class="mb-4 form-control time-right" id cols="30" rows="3"></textarea>
+        <button ng-click="chat.sendMessage(chat.text)" class="btn btn-primary time-left" style="float: right;">Enviar</button>
     </div>
 
 </div>

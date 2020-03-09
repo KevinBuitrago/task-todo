@@ -30,6 +30,9 @@ const projectConfig = function ($routeProvider) {
 		.when('/chat', {
 			templateUrl: "views/chat.html"
 		})
+		.when('/contac', {
+			templateUrl: "views/contac.html"
+		})
 		.otherwise({
 			redirect: '/gallery'
 		});
