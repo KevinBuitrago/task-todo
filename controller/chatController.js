@@ -11,7 +11,7 @@ const chatController = function (chatSrv, $q) {
                 if (chatSrv.purgeObject(dataChat)) {
                     idConversation = Object.keys(chatSrv.purgeObject(dataChat))[0];
                     console.log(dataChat[idConversation]);
-                    vm.message = dataChat[idConversation].message;
+                    vm.message = (dataChat[idConversation]) ? dataChat[idConversation].message : null;
                 }
                 dataChat.$watch(() => {
                     if (chatSrv.purgeObject(dataChat)) {
