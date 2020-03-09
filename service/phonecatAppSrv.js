@@ -21,7 +21,7 @@ var phonecatAppSrv = function ($q) {
         },
         saveUrl: (imageUrl) => {
             return $q((resolve, reject) => {
-                const idPush = responsephonecatAppSrv.pushIdImage()
+                responsephonecatAppSrv.pushIdImage()
                     .then((data) => {
                         return responsephonecatAppSrv.setimage(data.key, imageUrl);
                     })

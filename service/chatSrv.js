@@ -2,26 +2,36 @@
 /*global angular:true*/
 /*global firebase:true*/
 
-var chatSrv = function ($q) {
+var chatSrv = function ($q, $firebaseObject) {
     let idSender = null,
-        idReceiver= null;
+        idReceiver = null;
+    var firebaseConnections = {};
     var responsechatSrv = {
-        // getChat: function (idUser, idcontac) {
-        //     return $q(function (resolve, reject) {
-        //         var url = "/chat/" + idUser + "/" + idcontac;
-        //         $firebaseObject(firebase.database().ref().child(url))
-        //         .$loaded((data) => {
-        //             if (data) {
-        //                 resolve(data);
-        //             } else {
-        //                 reject("GENERAL.GENERIC_ERROR");
-        //             }
-        //         });
-        //     });
-        // },
-        saveUsers: (idUser, idContac) =>{
+        getChatRealTime: function () {
+            return $q(function (resolve, reject) {
+                var url = "/chat/" + idSender + "/" + idReceiver;
+                responsechatSrv.createConnectionURL("phonecatApp", url);
+                $firebaseObject(mainRef.child(url)).$loaded()
+                    .then((data) => {
+                        resolve(data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+        saveUsers: (idUser, idContac) => {
             idSender = idUser;
             idReceiver = idContac;
+        },
+        purgeObject: (object) => {
+            var newObject = {};
+            angular.forEach(object, (value, key) => {
+                if (key.indexOf("$") == -1) {
+                    newObject[key] = value;
+                }
+            });
+            return newObject;
         },
         getChat: () => {
             return $q(function (resolve, reject) {
@@ -55,14 +65,18 @@ var chatSrv = function ($q) {
             return $q(function (resolve, reject) {
                 data.idSender = idSender;
                 data.idReceiver = idReceiver;
-                firebase.database().ref().child("/chat/" + idReceiver + "/"  + idSender +  "/" + data.idConversation + "/message")
+                firebase.database().ref().child("/chat/" + idReceiver + "/" + idSender + "/" + data.idConversation + "/message")
                     .push(data)
                     .then(() => resolve(true))
                     .catch(() => reject(false))
             });
-        }
+        },
+        createConnectionURL: function (module, URL) {
+            if (!firebaseConnections[module]) firebaseConnections[module] = [];
+            firebaseConnections[module].push(URL);
+        },
     };
     return responsechatSrv;
 };
-chatSrv.$inject = ["$q"];
+chatSrv.$inject = ["$q", "$firebaseObject"];
 angular.module("phonecatApp").factory("chatSrv", chatSrv);

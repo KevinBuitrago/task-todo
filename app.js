@@ -5,7 +5,7 @@ const runHome = function ($rootScope, $location) {
 };
 runHome.$inject = ["$rootScope", "$location"];
 angular
-	.module("phonecatApp", ["ngRoute"])
+	.module("phonecatApp", ["ngRoute", "firebase"])
 	.run(runHome);
 /**
 * @ngdoc index
