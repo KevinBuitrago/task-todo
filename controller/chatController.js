@@ -8,8 +8,7 @@ const chatController = function (chatSrv, $q) {
         chatSrv.getChatRealTime()
             .then((data) => {
                 dataChat = data;
-                console.log(chatSrv.purgeObject(dataChat));
-                if (chatSrv.purgeObject(dataChat).length > 0) {
+                if (chatSrv.purgeObject(dataChat)) {
                     idConversation = Object.keys(chatSrv.purgeObject(dataChat))[0];
                     console.log(dataChat[idConversation]);
                     vm.message = dataChat[idConversation].message;
